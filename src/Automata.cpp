@@ -1,6 +1,7 @@
 #include "Automata.h"
 #include <iostream>
 #include <sstream>
+#include <string>
 
 Automata::Automata() : cash(0), selectedPrice(0), state(STATES::OFF) {
     menu = {"Чай", "Кофе", "Молоко", "Горячий шоколад", "Капучино"};
@@ -49,12 +50,10 @@ STATES Automata::getState() {
 
 bool Automata::choice(int drinkIndex) {
     if (state != STATES::ACCEPT) return false;
-    if (drinkIndex < 1 || drinkIndex > (int)menu.size()) return false;
-    
+    if (drinkIndex < 1 || drinkIndex > static_cast<int>(menu.size())) return false;
     selectedPrice = prices[drinkIndex - 1];
     std::cout << "Выбран: " << menu[drinkIndex - 1] << " - " << selectedPrice << " руб.\n";
     state = STATES::CHECK;
-    
     if (cash >= selectedPrice) {
         cook();
         return true;
