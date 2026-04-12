@@ -40,8 +40,10 @@ std::string Automata::getMenu() {
     std::stringstream ss;
     ss << "===== МЕНЮ =====\n";
     for (size_t i = 0; i < menu.size(); i++) {
-        ss << i + 1 << ". " << menu[i] << " - " << prices[i] << " руб.\n";
+        ss << i + 1 << ". " << menu[i] << " - " 
+           << prices[i] << " руб.\n";
     }
+    ss << "================\n";
     return ss.str();
 }
 
@@ -51,9 +53,11 @@ STATES Automata::getState() {
 
 bool Automata::choice(int drinkIndex) {
     if (state != STATES::ACCEPT) return false;
-    if (drinkIndex < 1 || drinkIndex > static_cast<int>(menu.size())) return false;
+    if (drinkIndex < 1 || drinkIndex > static_cast<int>(menu.size())) 
+        return false;
     selectedPrice = prices[drinkIndex - 1];
-    std::cout << "Выбран: " << menu[drinkIndex - 1] << " - " << selectedPrice << " руб.\n";
+    std::cout << "Выбран: " << menu[drinkIndex - 1] 
+              << " - " << selectedPrice << " руб.\n";
     state = STATES::CHECK;
     if (cash >= selectedPrice) {
         cook();
