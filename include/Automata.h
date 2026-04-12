@@ -1,5 +1,6 @@
-#ifndef AUTOMATA_H
-#define AUTOMATA_H
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
+
 #include <string>
 #include <vector>
 enum class STATES {
@@ -10,13 +11,13 @@ enum class STATES {
     COOK
 };
 class Automata {
-private:
+ private:
     int cash;
     int selectedPrice;
     std::vector<std::string> menu;
     std::vector<int> prices;
     STATES state;
-public:
+ public:
     Automata();
     void on();
     void off();
