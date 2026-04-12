@@ -1,8 +1,11 @@
+// Copyright 2026 AnastasiaLos
+
 #ifndef INCLUDE_AUTOMATA_H_
 #define INCLUDE_AUTOMATA_H_
 
 #include <string>
 #include <vector>
+
 enum class STATES {
     OFF,
     WAIT,
@@ -10,6 +13,7 @@ enum class STATES {
     CHECK,
     COOK
 };
+
 class Automata {
  private:
     int cash;
@@ -17,6 +21,7 @@ class Automata {
     std::vector<std::string> menu;
     std::vector<int> prices;
     STATES state;
+
  public:
     Automata();
     void on();
@@ -32,4 +37,5 @@ class Automata {
     int getSelectedPrice() const;
     void setStateForTest(STATES newState);
 };
-#endif
+
+#endif  // INCLUDE_AUTOMATA_H_
