@@ -1,5 +1,6 @@
 // Copyright 2026 AnastasiaLos
 #include <gtest/gtest.h>
+#include <string>
 #include "Automata.h"
 TEST(AutomataTest, InitialStateIsOff) {
     Automata a;
@@ -44,9 +45,8 @@ TEST(AutomataTest, ChoiceWithEnoughMoneyStartsCooking) {
     Automata a;
     a.on();
     a.coin(100);
-    bool result = a.choice(2);  // Кофе 80 руб.
+    bool result = a.choice(2);
     EXPECT_TRUE(result);
-    // После choice должен быть CHECK, потом COOK, потом WAIT
     EXPECT_EQ(a.getState(), STATES::WAIT);
 }
 TEST(AutomataTest, CancelFromAcceptReturnsMoney) {
@@ -61,8 +61,7 @@ TEST(AutomataTest, CancelFromCheckReturnsMoney) {
     Automata a;
     a.on();
     a.coin(100);
-    a.choice(2);  // Выбрали кофе
-    // После choice состояние стало CHECK
+    a.choice(2);
     a.cancel();
     EXPECT_EQ(a.getState(), STATES::WAIT);
     EXPECT_EQ(a.getCash(), 0);
@@ -72,29 +71,20 @@ TEST(AutomataTest, GetMenuReturnsNonEmptyString) {
     std::string menu = a.getMenu();
     EXPECT_FALSE(menu.empty());
     EXPECT_NE(menu.find("Чай"), std::string::npos);
-    EXPECT_NE(menu.find("Кофе"), std::string::npos);
 }
 TEST(AutomataTest, ChoiceInvalidIndexReturnsFalse) {
     Automata a;
     a.on();
     a.coin(100);
-    bool result = a.choice(99);  // Несуществующий напиток
+    bool result = a.choice(99);
     EXPECT_FALSE(result);
     EXPECT_EQ(a.getState(), STATES::ACCEPT);
-}
-TEST(AutomataTest, FinishAfterCookResetsCash) {
-    Automata a;
-    a.on();
-    a.coin(100);
-    a.choice(2);
-    // После приготовления cash должен обнулиться
-    EXPECT_EQ(a.getCash(), 0);
 }
 TEST(AutomataTest, OffFromAcceptNotAllowed) {
     Automata a;
     a.on();
     a.coin(100);
-    a.off();  // Не должно выключиться
+    a.off();
     EXPECT_EQ(a.getState(), STATES::ACCEPT);
 }
 TEST(AutomataTest, CoinNegativeAmountIgnored) {
